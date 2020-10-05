@@ -14,8 +14,8 @@ class ArrayList {
         x = new double[n];
 	    for (int i=0; i<n; i++){
 	        x[i] = 0;
-            i *= 2;
-		    std::cout << x[i] << std::endl;
+            //i *= 2;
+		    //std::cout << x[i] << std::endl;
 	    }
     }
     public:
@@ -54,24 +54,39 @@ class ArrayList {
 
 bool is_prime(int N){
     ArrayList x();
-    int k = 2;
-    int i = 0;
+    int i = 2;
     while(i <= N){
-        if (i % k == 0){
-            return 0;
-        }
-        else {
-            ArrayList a;
-            a.append(i);
+        int k=2;
+        while(k <= i){
+            if (k==i) { // Dette er sketchy kode og kan føre til bugs
+		        //std::cout << "her" << std::endl;
+                ArrayList a;
+                a.append(i);
+                a.print();
+                //k++;
+                break;
+            }
+            else if (i % k == 0){
+		        //std::cout << "her**" << std::endl;
+                break;
+            }
+            else {
+                k++;
+            }
         }
         i++;
-        k++;
     }
     return true;
 };
 
+bool test_is_prime(){
+    is_prime(10);
+    return true;
+}
+
 int main(){
     ArrayList a;
-    a.print();
+    //a.print();
+    test_is_prime();
     return 0;
 }
