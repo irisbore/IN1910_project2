@@ -1,4 +1,4 @@
-#include <string>
+//#include <string>
 #include <iostream>
 #include <cassert>
 //#include <cstdio>
@@ -8,6 +8,7 @@ class ArrayList {
         double *x;
         int n = 1;
         int size = 0;
+        int growth = 2;
         int capacity = n;
     public: ArrayList(){
         x = new double[n];
@@ -19,23 +20,23 @@ class ArrayList {
     }
     public:
     int length() {
-        return 0;
+        return size;
     }
     ~ArrayList() {
         delete[] x;
     }
-    private:
+    public:
     void append(int n) {
         if (size < capacity) {
             x[size] = n;
             size += 1;
         } else {
-            throw std::range_error("Capacity full");
+            resize();
         }
     };
     private:
     void resize(){
-        capacity *= 2;
+        capacity *= growth;
         double *tmp = new double[capacity];
         for (int i=0; i<size; i++) {
             tmp[i] = x[i];
@@ -44,13 +45,33 @@ class ArrayList {
         x = tmp;
     }
     public:
-    void print(){
+    void print(){ //Hvordan får man den til å printe
         for (int i=0; i<n; i++){
 		    std::cout << x[i] << std::endl;
         }
     };
 };
 
+bool is_prime(int N){
+    ArrayList x();
+    int k = 2;
+    int i = 0;
+    while(i <= N){
+        if (i % k == 0){
+            return 0;
+        }
+        else {
+            ArrayList a;
+            a.append(i);
+        }
+        i++;
+        k++;
+    }
+    return true;
+};
+
 int main(){
     ArrayList a;
+    a.print();
+    return 0;
 }
