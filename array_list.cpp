@@ -12,7 +12,7 @@ class ArrayList {
         int growth = 2;
         int capacity = n;
     public: ArrayList(){
-        x = new int[size];
+        x = new int[capacity];
 	    /*for (int i=0; i<n; i++){
 	        x[i] = 0;
             //i *= 2;
@@ -21,9 +21,9 @@ class ArrayList {
     }
 
     ArrayList(std::vector<int> vect){
-        x = new int[size];
+        x = new int[capacity];
         for (int i: vect){
-            append(vect[i]);
+            append(i);
         }
     }
 
@@ -38,10 +38,11 @@ class ArrayList {
     void append(int n) {
         if (size < capacity) {
             x[size] = n;
-            size += 1;
         } else {
             resize();
+            x[size] = n;
         }
+        size += 1;
     };
     private:
     void resize(){
@@ -87,8 +88,8 @@ void test_is_prime(){
 
 int main(){
     ArrayList a;
-    //a.print();
-    //test_is_prime();
+    a.print();
+    test_is_prime();
     ArrayList primes({2, 3, 5, 8, 11});
     primes.print();
     return 0;
