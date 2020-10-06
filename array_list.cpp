@@ -1,23 +1,32 @@
 //#include <string>
 #include <iostream>
 #include <cassert>
+#include <vector>       
 //#include <cstdio>
 
 class ArrayList {
     private: 
-        double *x;
+        int *x;
         int n = 1;
         int size = 0;
         int growth = 2;
         int capacity = n;
     public: ArrayList(){
-        x = new double[n];
-	    for (int i=0; i<n; i++){
+        x = new int[size];
+	    /*for (int i=0; i<n; i++){
 	        x[i] = 0;
             //i *= 2;
 		    //std::cout << x[i] << std::endl;
-	    }
+	    }*/
     }
+
+    ArrayList(std::vector<int> vect){
+        x = new int[size];
+        for (int i: vect){
+            append(vect[i]);
+        }
+    }
+
     public:
     int length() {
         return size;
@@ -37,7 +46,7 @@ class ArrayList {
     private:
     void resize(){
         capacity *= growth;
-        double *tmp = new double[capacity];
+        int *tmp = new int[capacity];
         for (int i=0; i<size; i++) {
             tmp[i] = x[i];
         }
@@ -46,47 +55,41 @@ class ArrayList {
     }
     public:
     void print(){ //Hvordan får man den til å printe
-        for (int i=0; i<n; i++){
+        for (int i=0; i<size; i++){
 		    std::cout << x[i] << std::endl;
         }
     };
 };
-
-bool is_prime(int N){
-    ArrayList x();
-    int i = 2;
-    while(i <= N){
-        int k=2;
-        while(k <= i){
-            if (k==i) { // Dette er sketchy kode og kan føre til bugs
-		        //std::cout << "her" << std::endl;
-                ArrayList a;
-                a.append(i);
-                a.print();
-                //k++;
-                break;
-            }
-            else if (i % k == 0){
-		        //std::cout << "her**" << std::endl;
-                break;
-            }
-            else {
-                k++;
-            }
+bool is_prime(int n){
+    if (n == 1) {
+        return false;
+    }
+    
+    for (int d=2; d<n; d++) {
+        if (n % d == 0) {
+            return false;
         }
-        i++;
     }
     return true;
-};
+}
 
-bool test_is_prime(){
-    is_prime(10);
-    return true;
+void test_is_prime(){
+    int n=1;
+    ArrayList a;
+    while(a.length() <10){
+        if (is_prime(n)){
+            a.append(n);
+        }
+        n++;
+    }
+    a.print();
 }
 
 int main(){
     ArrayList a;
     //a.print();
-    test_is_prime();
+    //test_is_prime();
+    ArrayList primes({2, 3, 5, 8, 11});
+    primes.print();
     return 0;
 }
