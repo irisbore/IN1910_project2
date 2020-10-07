@@ -2,12 +2,15 @@
 #include <iostream>
 #include <cassert>
 #include <vector>
+<<<<<<< HEAD
 #include  <stdexcept>
 
+=======
+>>>>>>> d46ccb909382ac7093bf583e2b8cd4437bad95e5
 //#include <cstdio>
 
 class ArrayList {
-    private: 
+    private:
         int *x;
         int n = 1;
         int size = 0;
@@ -107,7 +110,7 @@ bool is_prime(int n){
     if (n == 1) {
         return false;
     }
-    
+
     for (int d=2; d<n; d++) {
         if (n % d == 0) {
             return false;
