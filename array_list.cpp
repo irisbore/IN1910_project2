@@ -2,11 +2,8 @@
 #include <iostream>
 #include <cassert>
 #include <vector>
-<<<<<<< HEAD
 #include  <stdexcept>
 
-=======
->>>>>>> d46ccb909382ac7093bf583e2b8cd4437bad95e5
 //#include <cstdio>
 
 class ArrayList {
@@ -102,6 +99,34 @@ class ArrayList {
                 x[i] = x[i+1]; 
             } 
         }
+        if (capacity > 4*size){
+            resize();
+        }
+    }
+
+    int pop(int index){ //skal man repetere koden eller kun kalle på remove?
+        int val = x[index];
+        remove(index);
+        return val;
+    }
+
+    int pop(){
+        return pop(size-1);
+    }
+
+    void shrink_to_fit(){
+        if (capacity >= 2*size){
+            capacity /= growth;
+            int *tmp = new int[capacity];
+            for (int i=0; i<size; i++) {
+                tmp[i] = x[i];
+            }
+            delete[] x;
+            x = tmp;
+        }
+        else{
+            throw std::out_of_range("Current capacity is necessary to store the array"); //kall feilen noe annet!!!
+        }
     }
 };
 
@@ -131,16 +156,25 @@ void test_is_prime(){
     a.print();
 }
 
+void test_shrink_to_fit(){
+    ArrayList primes({2, 3, 5, 8, 11});
+    primes.remove(2);
+    primes.shrink_to_fit();
+    primes.print();
+}
+
 int main(){
     ArrayList a;
     //a.print();
     //test_is_prime();
     ArrayList primes({2, 3, 5, 8, 11});
     //primes.print();
-    primes.insert(4, 2);
+    //primes.insert(4, 2);
     //primes.print();
-    primes.remove(2);
+    //primes.remove(2);
+    //primes.print();
+    //test_shrink_to_fit();
+    std::cout << primes.pop() << std::endl;
     primes.print();
-    //std::cout << primes[4] << std::endl;
     return 0;
 }
