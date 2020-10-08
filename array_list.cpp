@@ -59,9 +59,12 @@ class ArrayList {
 
     public:
     void print(){
-        for (int i=0; i<size; i++){
-		    std::cout << x[i] << std::endl;
+        std::cout << "[";
+        for (int i=0; i<size-1; i++){
+		    std::cout << x[i];
+            std::cout << ", ";
         }
+        std::cout << x[size-1] << "]" << std::endl;
     }
 
     int& operator[](int i){
@@ -125,7 +128,7 @@ class ArrayList {
             x = tmp;
         }
         else{
-            throw std::out_of_range("Current capacity is necessary to store the array"); //kall feilen noe annet!!!
+            std::cout << "Current capacity is necessary to store the array" << std::endl;
         }
     }
 };
@@ -166,9 +169,8 @@ void test_shrink_to_fit(){
 int main(){
     ArrayList a;
     //a.print();
-    //test_is_prime();
+    test_is_prime();
     ArrayList primes({2, 3, 5, 8, 11});
-    //primes.print();
     //primes.insert(4, 2);
     //primes.print();
     //primes.remove(2);
