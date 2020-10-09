@@ -2,11 +2,17 @@
 #include <cassert>
 #include <vector>
 
+using namespace std;
+
 //Struct
 struct Node {
     int value;
     Node* previous;
     Node* next;
+
+    Node(int val) {
+    value = val;
+    }
 };
 
 //Class
@@ -16,40 +22,34 @@ class LinkedList {
     //Two node pointers
     Node* head;
     Node* tail;
-    size = 0;
+    int size;
 
 
   public:
     //Constructor
     LinkedList() {
-      //Assigning random value 0 to head and tail
-      head = new Node(0, nullptr, nullptr);
-      tail = new Node(0, nullptr, nullptr);
-      head->next = tail;
-      tail->previous = head;
+      head = nullptr;
+      tail = nullptr;
+      //head->next = tail;
+      //tail->previous = head;
+      size = 0;
       }
 
     int length() {
     return size;
   }
 
-void append(int val){
-  Node* a = new Node(val, tail->previous, tail);
-  tail->previous = a;
-  a->previous->next = a;
-  size++;
-  }
+/*LinkedList(vector<int>) {}*/
 
 void print() {
-    Node* current = head->next;
+    Node* current = head;
     cout << "[";
-    while (current->next != nullptr) {
+    while (current != nullptr) {
         cout << current->value;
         cout << ", ";
         current = current->next;
-    }
-    //while (current != tail:)
     cout << current->value << "]" << endl;
+}
 }
 
 ~LinkedList() {
@@ -66,22 +66,71 @@ void print() {
         current = previous;
         current = next;
     }
-
-
+}
+//Should this be able to start at tail?
 int& operator[] (int index) {
+  if (index < 0 or index >= size) {
+        throw range_error("IndexError: Index out of range");
+      }
+
   Node* current = head->next;
 
   for (int i=0; i<index; i++) {
     current = current->next;
     }
-    return current;
-    }
-
-}
-void insert(int val, int index) {
-    Node* previous = get_node(index-1);
-    Node* next = prev->next;
-    prev->next = new Node(val, next);
+    return current->value;
 }
 
+void append(int val){
+  Node* a = new Node(val);
+  tail->next = a;
+  tail = a;
+  size++;
+}
+
+void insert(int val, int index){
+  Node* current = head;
+  for(int i = 0; i<index;){
+    current = current->next;
+  }
+
+  Node* a = current->next;
+  current->next = new Node(val);
+  current->next->next = a;
+  size++;
+}
+
+/*
+void remove(int){
+  for (int i=0; i<int; i++)
+{
+  Node* current = current->next;
+}
+  delete current;
+}
+
+int pop(int val) {
+  for(int i=0; i<val; i++)
+{
+  Node* current = current->next;
+}
+  return current;
+  delete current;
+}
+
+int pop(){
+  Node* a = tail->previous;
+  return a;
+  delete a;
+}
+*/
 };
+
+int main() {
+  /* code */
+  LinkedList l;
+  l.append(4);
+  l.insert(3, 1);
+  l.print();
+  return 0;
+}
