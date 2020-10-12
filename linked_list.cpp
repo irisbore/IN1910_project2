@@ -36,10 +36,8 @@ class LinkedList {
       }
 
     int length() {
-    return size;
+      return size;
   }
-
-/*LinkedList(vector<int>) {}*/
 
 void print() {
     Node* current = head;
@@ -52,6 +50,7 @@ void print() {
 }
 }
 
+//Destructor
 ~LinkedList() {
     Node* current;
     Node* previous;
@@ -67,7 +66,7 @@ void print() {
         current = next;
     }
 }
-//Should this be able to start at tail?
+
 int& operator[] (int index) {
   if (index < 0 or index >= size) {
         throw range_error("IndexError: Index out of range");
@@ -100,22 +99,24 @@ void insert(int val, int index){
   size++;
 }
 
-/*
-void remove(int){
-  for (int i=0; i<int; i++)
+void remove(int stop){
+  Node* current = current;
+  for(int i=0; i<stop; i++)
 {
-  Node* current = current->next;
+  current = current->next;
 }
-  delete current;
+  delete[] current;
 }
+
 
 int pop(int val) {
   for(int i=0; i<val; i++)
+  Node* current = current;
 {
-  Node* current = current->next;
+  current = current->next;
 }
   return current;
-  delete current;
+  delete[] current;
 }
 
 int pop(){
@@ -123,14 +124,26 @@ int pop(){
   return a;
   delete a;
 }
-*/
+
+//Overload constructor
+LinkedList(vector<int> initial) {
+    int size = 0;
+    int capacity = 10000;
+    data = new int[capacity];
+
+    for (int e: initial) {
+        append(e);
+    }
+}
 };
 
 int main() {
-  /* code */
   LinkedList l;
   l.append(4);
+  l.append(3);
+  l.append(2);
   l.insert(3, 1);
   l.print();
+  l.remove(2);
   return 0;
 }
