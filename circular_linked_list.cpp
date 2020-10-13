@@ -17,7 +17,7 @@ struct Node {
     }
 };
 
-class  CircLinkedList{
+class CircLinkedList{
     private:
     Node* head;
     Node* tail;
@@ -26,24 +26,42 @@ class  CircLinkedList{
     public:
     CircLinkedList() {
         head = nullptr;
+        tail = nullptr;
     }
-/*
+
     CircLinkedList(int n){
+        head = nullptr;
+        tail = nullptr;
         int i = 1;
         if (head == nullptr) {
             head = new Node(i);
             size ++;
         }
-        Node* current;
-        current = head;
-        while (i<=n){
-            current->next = new Node(i);
-            current = current->next;
-            size ++;
+        else{
+            Node* current;
+            current = head;
+            while (i<=n){
+                append(i);
+                //current->next = new Node(i);
+                //current = current->next;
+                size ++;
+                i++;
+            }
         }
     }
-*/
+
     void append(int val) {
+        Node* new_node = new Node(val);
+        size ++;
+        if (head==nullptr){
+            head = new_node;
+            new_node->next = new_node;
+            tail = new_node;
+        }
+        tail->next = new_node;
+        tail=new_node;
+        new_node->next = head;
+    }/*
         if (head == nullptr) {
             head = new Node(val, head);
             size ++;
@@ -61,7 +79,8 @@ class  CircLinkedList{
         current->next = new Node(val, head);
         //current->next->next = head;
         size ++;
-    }
+    }*/
+    
     int& operator[](int index){
         if (index < 0 || head==nullptr) {
             throw std::out_of_range("IndexError: Index out of range");
@@ -72,6 +91,7 @@ class  CircLinkedList{
         }
         return current->value;
     }
+
     void print() {
         Node* current = head;
         std::cout << "[";
@@ -94,11 +114,10 @@ class  CircLinkedList{
             current = next;
         }
     }
-/*
+
     std::vector<int> josephus_sequence(int k){
         int i = 1;
-        int *x;
-        x = new int[size];
+        std::vector<int> x = std::vector<int>{};
         Node* current;
         while(i<size){
             for (int j=1; j<=k; j++){
@@ -107,17 +126,22 @@ class  CircLinkedList{
             x[i] = current->value;
             i ++;
         }
-        delete[] x;
         return x;
     }
-*/
+};
+
+int last_man_standing(int n, int k){
+    CircLinkedList a{n};
+    std::vector<int> x = a.josephus_sequence(k);
+    return x[n];
 };
 
 int main(){
     CircLinkedList clist;
-    //clist.append(0);
-    //clist.append(2);
+    clist.append(0);
+    clist.append(2);
     clist.append(4);
     clist.print();
+    last_man_standing(5, 3);
     return 0;
 }
