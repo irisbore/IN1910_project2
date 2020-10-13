@@ -10,7 +10,10 @@ struct Node {
     Node* previous;
     Node* next;
 
+
     Node(int val) {
+    next = nullptr;
+    previous = nullptr;
     value = val;
     }
 };
@@ -30,8 +33,6 @@ class LinkedList {
     LinkedList() {
       head = nullptr;
       tail = nullptr;
-      //head->next = tail;
-      //tail->previous = head;
       size = 0;
       }
 
@@ -42,7 +43,7 @@ class LinkedList {
 void print() {
     Node* current = head;
     cout << "[";
-    while (current != nullptr) {
+    while (current->next!= nullptr) {
         cout << current->value;
         cout << ", ";
         current = current->next;
@@ -53,16 +54,13 @@ void print() {
 //Destructor
 ~LinkedList() {
     Node* current;
-    Node* previous;
     Node* next;
 
     current = head;
 
     while (current != nullptr) {
-        previous = current->previous;
         next = current->next;
         delete current;
-        current = previous;
         current = next;
     }
 }
@@ -72,12 +70,13 @@ int& operator[] (int index) {
         throw range_error("IndexError: Index out of range");
       }
 
-  Node* current = head->next;
+  Node* current = head;
 
   for (int i=0; i<index; i++) {
     current = current->next;
     }
-    return current->value;
+    int val = current->value;
+    return val;
 }
 
 void append(int val){
@@ -86,10 +85,10 @@ void append(int val){
   tail = a;
   size++;
 }
-
+/*
 void insert(int val, int index){
   Node* current = head;
-  for(int i = 0; i<index;){
+  for(int i = 0; i<index; i++){
     current = current->next;
   }
 
@@ -100,37 +99,38 @@ void insert(int val, int index){
 }
 
 void remove(int stop){
-  Node* current = current;
+  Node* current = head;
   for(int i=0; i<stop; i++)
 {
   current = current->next;
 }
   delete[] current;
+  size--;
 }
 
 
-int pop(int val) {
-  for(int i=0; i<val; i++)
-  Node* current = current;
+int pop(int index) {
+  Node* current = head;
+  for(int i=0; i<index; i++)
 {
   current = current->next;
 }
-  return current;
-  delete[] current;
+  remove(index);
+  int pop_value = current->value;
+  return pop_value;
+
 }
 
 int pop(){
-  Node* a = tail->previous;
-  return a;
-  delete a;
+  pop(size-1);
 }
+*/
 
 //Overload constructor
 LinkedList(vector<int> initial) {
-    int size = 0;
-    int capacity = 10000;
-    data = new int[capacity];
-
+    size = 0;
+    head = nullptr;
+    tail = nullptr;
     for (int e: initial) {
         append(e);
     }
@@ -139,13 +139,19 @@ LinkedList(vector<int> initial) {
 
 int main() {
   LinkedList l;
-  l.append(4);
-  l.append(3);
+  l.length();
+  //l.print();
+  /*
   l.append(2);
+  l.append(3);
+  l.append(3);
   l.insert(3, 1);
   l.print();
-  l.remove(2);
+  l.remove(3);
+  l.pop(2);
+  l.print();*/
+
+  //TEST OVERLOAD
+  LinkedList L({1,2,3});
   return 0;
 }
-
-def 
