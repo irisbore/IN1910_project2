@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include <vector>
+#include <list>
 
 using namespace std;
 
@@ -10,11 +11,11 @@ struct Node {
     Node* previous;
     Node* next;
 
-
-    Node(int val) {
+    //Node constructor
+    Node(int n) {
     next = nullptr;
     previous = nullptr;
-    value = val;
+    value = n;
     }
 };
 
@@ -56,13 +57,10 @@ void print() {
     Node* current;
     Node* next;
 
-    current = head;
-
-    while (current != nullptr) {
-        next = current->next;
-        delete current;
-        current = next;
+    for(current = head; current != nullptr; current=current->next) {
+        delete[] current;
     }
+    delete[] tail;
 }
 
 int& operator[] (int index) {
@@ -133,7 +131,8 @@ LinkedList(vector<int> initial) {
     tail = nullptr;
     for (int e: initial) {
         append(e);
-    }
+
+}
 }
 };
 
@@ -141,17 +140,19 @@ int main() {
   LinkedList l;
   l.length();
   //l.print();
-  /*
+
   l.append(2);
   l.append(3);
   l.append(3);
+  /*
   l.insert(3, 1);
   l.print();
   l.remove(3);
   l.pop(2);
   l.print();*/
 
-  //TEST OVERLOAD
+  //Test overload
   LinkedList L({1,2,3});
+  L.print();
   return 0;
 }
