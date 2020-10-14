@@ -2,11 +2,20 @@
 #include <cassert>
 #include <vector>
 
+using namespace std;
+
 //Struct
 struct Node {
     int value;
     Node* previous;
     Node* next;
+
+
+    Node(int val) {
+    next = nullptr;
+    previous = nullptr;
+    value = val;
+    }
 };
 
 //Class
@@ -16,72 +25,133 @@ class LinkedList {
     //Two node pointers
     Node* head;
     Node* tail;
-    size = 0;
+    int size;
 
 
   public:
     //Constructor
     LinkedList() {
-      //Assigning random value 0 to head and tail
-      head = new Node(0, nullptr, nullptr);
-      tail = new Node(0, nullptr, nullptr);
-      head->next = tail;
-      tail->previous = head;
+      head = nullptr;
+      tail = nullptr;
+      size = 0;
       }
 
     int length() {
-    return size;
-  }
-
-void append(int val){
-  Node* a = new Node(val, tail->previous, tail);
-  tail->previous = a;
-  a->previous->next = a;
-  size++;
+      return size;
   }
 
 void print() {
-    Node* current = head->next;
+    Node* current = head;
     cout << "[";
-    while (current->next != nullptr) {
+    while (current->next!= nullptr) {
         cout << current->value;
         cout << ", ";
         current = current->next;
-    }
-    //while (current != tail:)
     cout << current->value << "]" << endl;
 }
+}
 
+//Destructor
 ~LinkedList() {
     Node* current;
-    Node* previous;
     Node* next;
 
     current = head;
 
     while (current != nullptr) {
-        previous = current->previous;
         next = current->next;
         delete current;
-        current = previous;
         current = next;
     }
-
+}
 
 int& operator[] (int index) {
-  Node* current = head->next;
+  if (index < 0 or index >= size) {
+        throw range_error("IndexError: Index out of range");
+      }
+
+  Node* current = head;
 
   for (int i=0; i<index; i++) {
     current = current->next;
     }
-    return current;
+    int val = current->value;
+    return val;
+}
+
+void append(int val){
+  Node* a = new Node(val);
+  tail->next = a;
+  tail = a;
+  size++;
+}
+/*
+void insert(int val, int index){
+  Node* current = head;
+  for(int i = 0; i<index; i++){
+    current = current->next;
+  }
+
+  Node* a = current->next;
+  current->next = new Node(val);
+  current->next->next = a;
+  size++;
+}
+
+void remove(int stop){
+  Node* current = head;
+  for(int i=0; i<stop; i++)
+{
+  current = current->next;
+}
+  delete[] current;
+  size--;
+}
+
+
+int pop(int index) {
+  Node* current = head;
+  for(int i=0; i<index; i++)
+{
+  current = current->next;
+}
+  remove(index);
+  int pop_value = current->value;
+  return pop_value;
+
+}
+
+int pop(){
+  pop(size-1);
+}
+*/
+
+//Overload constructor
+LinkedList(vector<int> initial) {
+    size = 0;
+    head = nullptr;
+    tail = nullptr;
+    for (int e: initial) {
+        append(e);
     }
-
 }
-void insert(int val, int index) {
-    Node* previous = get_node(index-1);
-    Node* next = prev->next;
-    prev->next = new Node(val, next);
-}
-
 };
+
+int main() {
+  LinkedList l;
+  l.length();
+  //l.print();
+  /*
+  l.append(2);
+  l.append(3);
+  l.append(3);
+  l.insert(3, 1);
+  l.print();
+  l.remove(3);
+  l.pop(2);
+  l.print();*/
+
+  //TEST OVERLOAD
+  LinkedList L({1,2,3});
+  return 0;
+}

@@ -92,7 +92,7 @@ class ArrayList {
         }
     }
 
-    void remove(int index){
+    void remove(int index){ // lag en for index==size
         if (index > size){
             throw std::out_of_range("Index is out of range");
         }
@@ -103,7 +103,7 @@ class ArrayList {
             } 
         }
         if (capacity > 4*size){
-            resize();
+            shrink_to_fit();
         }
     }
 
@@ -118,6 +118,7 @@ class ArrayList {
     }
 
     void shrink_to_fit(){
+        std::cout << "Original capacity:" << capacity << std::endl;
         if (capacity >= 2*size){
             capacity /= growth;
             int *tmp = new int[capacity];
@@ -126,6 +127,7 @@ class ArrayList {
             }
             delete[] x;
             x = tmp;
+            std::cout << "New capacity:" << capacity << std::endl;
         }
         else{
             std::cout << "Current capacity is necessary to store the array" << std::endl;
@@ -161,7 +163,13 @@ void test_is_prime(){
 
 void test_shrink_to_fit(){
     ArrayList primes({2, 3, 5, 8, 11});
-    primes.remove(2);
+    primes.print();
+    primes.remove(1);
+    primes.remove(1);
+    primes.shrink_to_fit();
+    primes.print();
+    primes.remove(1);
+    primes.remove(1);
     primes.shrink_to_fit();
     primes.print();
 }
