@@ -33,6 +33,17 @@ class CircLinkedList{
         head = nullptr;
         tail = nullptr;
         int i = 1;
+        while (i<=n){
+            append(i);
+            //current->next = new Node(i);
+            //current = current->next;
+            size ++;
+            i++;
+        }/*
+        head = nullptr;
+        tail = nullptr;
+        int i = 1;
+
         if (head == nullptr) {
             head = new Node(i);
             size ++;
@@ -47,7 +58,7 @@ class CircLinkedList{
                 size ++;
                 i++;
             }
-        }
+        }*/
     }
 
     void append(int val) {
@@ -115,15 +126,40 @@ class CircLinkedList{
         }
     }
 
+    void remove(int index){
+        Node* previous = head;
+        Node* current = head->next;
+        Node* next;
+        for(int i=0; i<=index; i++){
+            current = current->next;
+            std::cout << current->value << std::endl;
+        }
+        //next = current->next;
+        //delete current;
+        //current = next;
+        if (current == nullptr){
+            std::cout << "Empty list" << std::endl;
+        }
+        else{
+            //std::cout << "her" << std::endl;
+            previous->next = current->next;
+            delete current; 
+            //next = current->next;
+            size--;
+        }
+    }
+
     std::vector<int> josephus_sequence(int k){
         int i = 1;
-        std::vector<int> x = std::vector<int>{};
-        Node* current;
-        while(i<size){
+        std::vector<int> x{};
+        Node* current = head;
+        while(i<size-1){
             for (int j=1; j<=k; j++){
                 current = current->next;
             }
-            x[i] = current->value;
+            std::cout << current->value << std::endl;
+            remove(i);
+            x.push_back(current->value);
             i ++;
         }
         return x;
@@ -141,7 +177,9 @@ int main(){
     clist.append(0);
     clist.append(2);
     clist.append(4);
+    clist.remove(0);
     clist.print();
-    last_man_standing(5, 3);
+    last_man_standing(6, 3);
+    std::cout << last_man_standing(6, 3) << std::endl;
     return 0;
 }
