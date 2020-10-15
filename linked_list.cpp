@@ -6,6 +6,7 @@
 using namespace std;
 
 //Struct
+
 struct Node {
     int value;
     Node* previous;
@@ -44,6 +45,7 @@ class LinkedList {
 void print() {
     Node* current = head;
     cout << "[";
+
     while (current->next!= nullptr) {
         cout << current->value;
         cout << ", ";
@@ -60,7 +62,7 @@ void print() {
     for(current = head; current != nullptr; current=current->next) {
         delete[] current;
     }
-    delete[] tail;
+
 }
 
 int& operator[] (int index) {
@@ -79,29 +81,53 @@ int& operator[] (int index) {
 
 void append(int val){
   Node* a = new Node(val);
+  if(head == nullptr){
+    head = a;
+    tail = a;
+    size++;
+  }
+  else{
   tail->next = a;
+  a->previous = tail;
   tail = a;
   size++;
+  }
 }
-/*
+
 void insert(int val, int index){
+  if (index < 0 or index >= size) {
+        throw range_error("IndexError: Index out of range");
+      }
   Node* current = head;
   for(int i = 0; i<index; i++){
     current = current->next;
   }
+  Node* a = new Node(val);
+  Node* left = current->previous;
+  Node* right = current;
 
-  Node* a = current->next;
-  current->next = new Node(val);
-  current->next->next = a;
+  a->previous = left;
+  a->next = right;
+
+  left->next = a;
+  right->previous = a;
+
   size++;
 }
 
-void remove(int stop){
+void remove(int index){
+  if (index < 0 or index >= size) {
+        throw range_error("IndexError: Index out of range");
+      }
   Node* current = head;
-  for(int i=0; i<stop; i++)
+  for(int i=0; i<index; i++)
 {
   current = current->next;
 }
+  Node* left = current->previous;
+  Node* right = current->next;
+  left->next = right;
+  right->previous = left;
   delete[] current;
   size--;
 }
@@ -122,7 +148,6 @@ int pop(int index) {
 int pop(){
   pop(size-1);
 }
-*/
 
 //Overload constructor
 LinkedList(vector<int> initial) {
@@ -131,28 +156,23 @@ LinkedList(vector<int> initial) {
     tail = nullptr;
     for (int e: initial) {
         append(e);
+}
+}
 
-}
-}
 };
-
 int main() {
   LinkedList l;
-  l.length();
-  //l.print();
-
+  l.append(1);
   l.append(2);
   l.append(3);
-  l.append(3);
-  /*
-  l.insert(3, 1);
+  l.insert(4, 1);
   l.print();
-  l.remove(3);
-  l.pop(2);
-  l.print();*/
-
-  //Test overload
-  LinkedList L({1,2,3});
+  l.remove(2);
+  l.pop(1);
+  l.print();
+  //Testing overload
+  LinkedList L({1,2,3,4,5});
+  L.remove(2);
   L.print();
   return 0;
 }
