@@ -37,7 +37,7 @@ class CircLinkedList{
         int i = 1;
         while (i<=n){
             append(i);
-            size ++; //          Jeg har size++ i både CirkLinkedList(n) og append. HVORFOR??
+            //size ++; //          Jeg har size++ i både CirkLinkedList(n) og append. HVORFOR??
             i++;
         }/*
         head = nullptr;
@@ -69,9 +69,11 @@ class CircLinkedList{
             new_node->next = new_node;
             tail = new_node;
         }
+        //new_node->previous = tail;
         tail->next = new_node;
-        tail=new_node;
+        //tail=new_node;
         new_node->next = head;
+        tail=new_node;
     }/*
         if (head == nullptr) {
             head = new Node(val, head);
@@ -125,42 +127,22 @@ class CircLinkedList{
             current = next;
         }
     }
-    void remove(int index){
-        Node* previous = head;
-        Node* current = head;
-        //Node* next;
-        if (current == nullptr){
-            std::cout << "Empty list" << std::endl;
-            return;
-        }
-        for(int i=0; i<index; i++){
-            current = current->next;
-            //std::cout << current->value << std::endl;
-        }
-        std::cout << current->value << std::endl;
-        previous->next = current->next;
-        delete current;
-        //next = current->next;
-        size--;
-    }
-
     std::vector<int> josephus_sequence(int k){
-        int i = 1;
         std::vector<int> x{};
+        Node* previous = tail;
         Node* current = head;
-        while(i<size){
-            if(current==nullptr){
-                break;
-            }
-            for (int j=0; j<k; j++){
+        while(current->next !=current){
+            for (int j=1; j<k; j++){
+                previous = current;
                 current = current->next;
             }
-            //std::cout << current->value << std::endl;
-            remove(i);
-            size--;
             x.push_back(current->value);
-            //i ++;
+            previous->next = current->next;
+            delete current;
+            current = previous->next;
+            size--;
         }
+        x.push_back(current->value);
         return x;
     }
 };
@@ -168,18 +150,18 @@ class CircLinkedList{
 int last_man_standing(int n, int k){
     CircLinkedList a{n};
     std::vector<int> x = a.josephus_sequence(k);
-    //std::cout << x[0] << std::endl;
-    return x[n];
+    return x[n-1];
 };
 
 int main(){
     CircLinkedList clist;
     clist.append(0);
     clist.append(2);
+    clist.append(3);
     clist.append(4);
-    clist.remove(1);
+    clist.append(5);
     clist.print();
     last_man_standing(6, 3);
-    //std::cout << last_man_standing(6, 3) << std::endl;
+    std::cout << last_man_standing(6, 3) << std::endl;
     return 0;
 }
