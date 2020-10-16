@@ -11,7 +11,6 @@ c++ -std=c++11 -Wall linked_list.cpp -o LinkedList
 c++ -std=c++11 -Wall cirular_linked_list.cpp -o CirkLinklist
 
 # Exercise 3)
-Comments:
 
 Get element i: The Big-oh notation is O(1) in array_list because index is accessed directly,
 and O(n) in linked_list because we access an index by iterating through the list.
