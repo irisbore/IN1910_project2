@@ -1,15 +1,5 @@
 # H20_project2_irissb_alicemj
 
-Operation:                array_list:           linked_list:
-get i                     O(1)                  O(n)     
-insert front              O(n)                  O(1)
-append                    O(1)                  O(1)
-insert middle             O(n)                  O(n)                      
-remove front              O(n)                  O(1)  
-remove back               O(1)                  O(1)
-remove middle             O(n)                  O(n)  
-print                     O(n)                  O(n)
-
 
 Comments:
 Get i is O(1) in array_list because index is accessed directly,
@@ -34,7 +24,7 @@ while linked_list is O(1) because we access tail directly.
 Remove middle is O(n) in both array_list and linked_list because it is O(n/2),
 but linear n/2 is written as n.
 
-Print is O(n) in both array_list and linked_list because we have to able to
+Print is O(n) in both array_list and linked_list because we have to be able to
 reach all the elements.
 
 
