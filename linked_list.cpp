@@ -58,7 +58,6 @@ void print() {
 //Destructor
 ~LinkedList() {
     Node* current;
-    Node* next;
 
     for(current = head; current != nullptr; current=current->next) {
         delete[] current;
