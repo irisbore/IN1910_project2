@@ -127,17 +127,24 @@ void remove(int index){
     tail = left;
     tail->next = nullptr;
   }
+  else if(index == 0){
+    current = head;
+    Node* right = current->next;
+    delete[] current;
+    size--;
+    head = right;
+    head->next = right->next;
+  }
   else{
-  for(int i=0; i<index; i++)
-{
-  current = current->next;
-}
-  Node* left = current->previous;
-  Node* right = current->next;
-  left->next = right;
-  right->previous = left;
-  delete[] current;
-  size--;
+    for(int i=0; i<index; i++){
+      current = current->next;
+    }
+    Node* left = current->previous;
+    Node* right = current->next;
+    left->next = right;
+    right->previous = left;
+    delete[] current;
+    size--;
   }
 }
 
