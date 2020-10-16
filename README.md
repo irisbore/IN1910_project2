@@ -1,16 +1,16 @@
 # H20_project2_irissb_alicemj
 
-#Link to repo
+# Link to repo
 https://github.uio.no/IN1910/H20_project2_irissb_alicemj.git
 
-#Commands used to compile the code
+# Commands used to compile the code
 c++ -std=c++11 -Wall array_list.cpp -o ArrayList
 
 c++ -std=c++11 -Wall linked_list.cpp -o LinkedList
 
 c++ -std=c++11 -Wall cirular_linked_list.cpp -o CirkLinklist
 
-#Exercise 3)
+# Exercise 3)
 Comments:
 
 Get element i: The Big-oh notation is O(1) in array_list because index is accessed directly,
@@ -40,5 +40,5 @@ Print: The Big-oh notation is O(n) in both array_list and linked_list because we
 reach all the elements in the list.
 
 
-Exercise 4g)
+# Exercise 4g)
 The answer is 68
