@@ -2,6 +2,7 @@
 #include <cassert>
 #include <vector>
 #include  <stdexcept>
+#include <cstddef>
 
 struct Node {
     int value;
@@ -73,7 +74,7 @@ class CircLinkedList{
             std::cout << ", ";
             current = current->next;
         }
-        std::cout << current->value << "]" << std::endl;
+        std::cout << current->value << ", ...]" << std::endl;
     }
     ~CircLinkedList() {
         Node* current;
@@ -103,6 +104,7 @@ class CircLinkedList{
             size--;
         }
         x.push_back(current->value);
+        delete current;
         return x;
     }
 };

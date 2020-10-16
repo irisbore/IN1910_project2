@@ -1,10 +1,7 @@
-//#include <string>
 #include <iostream>
 #include <cassert>
 #include <vector>
 #include  <stdexcept>
-
-//#include <cstdio>
 
 class ArrayList {
     private:
@@ -15,11 +12,6 @@ class ArrayList {
         int capacity = n;
     public: ArrayList(){
         x = new int[capacity];
-	    /*for (int i=0; i<n; i++){
-	        x[i] = 0;
-            //i *= 2;
-		    //std::cout << x[i] << std::endl;
-	    }*/
     }
 
     ArrayList(std::vector<int> vect){
@@ -92,7 +84,7 @@ class ArrayList {
         }
     }
 
-    void remove(int index){ // lag en for index==size
+    void remove(int index){ 
         if (index > size){
             throw std::out_of_range("Index is out of range");
         }
@@ -107,7 +99,7 @@ class ArrayList {
         }
     }
 
-    int pop(int index){ //skal man repetere koden eller kun kalle på remove?
+    int pop(int index){
         int val = x[index];
         remove(index);
         return val;
@@ -176,15 +168,13 @@ void test_shrink_to_fit(){
 
 int main(){
     ArrayList a;
-    //a.print();
     test_is_prime();
     ArrayList primes({2, 3, 5, 8, 11});
-    //primes.insert(4, 2);
-    //primes.print();
-    //primes.remove(2);
-    //primes.print();
-    //test_shrink_to_fit();
-    std::cout << primes.pop() << std::endl;
+    primes.insert(4, 2);
     primes.print();
+    primes.remove(2);
+    primes.print();
+    test_shrink_to_fit();
+    std::cout << primes.pop() << std::endl;
     return 0;
 }

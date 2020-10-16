@@ -2,6 +2,7 @@
 #include <cassert>
 #include <vector>
 #include <list>
+#include  <stdexcept>
 
 using namespace std;
 
