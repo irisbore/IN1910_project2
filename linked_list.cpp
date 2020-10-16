@@ -50,8 +50,8 @@ void print() {
         cout << current->value;
         cout << ", ";
         current = current->next;
+      }
     cout << current->value << "]" << endl;
-}
 }
 
 //Destructor
@@ -75,8 +75,7 @@ int& operator[] (int index) {
   for (int i=0; i<index; i++) {
     current = current->next;
     }
-    int val = current->value;
-    return val;
+    return current->value;
 }
 
 void append(int val){
@@ -120,6 +119,15 @@ void remove(int index){
         throw range_error("IndexError: Index out of range");
       }
   Node* current = head;
+  if(index == size-1){
+    current = tail;
+    Node* left = current->previous;
+    delete[] current;
+    size--;
+    tail = left;
+    tail->next = nullptr;
+  }
+  else{
   for(int i=0; i<index; i++)
 {
   current = current->next;
@@ -130,6 +138,7 @@ void remove(int index){
   right->previous = left;
   delete[] current;
   size--;
+  }
 }
 
 
@@ -139,14 +148,14 @@ int pop(int index) {
 {
   current = current->next;
 }
-  remove(index);
   int pop_value = current->value;
+  remove(index);
   return pop_value;
 
 }
 
 int pop(){
-  pop(size-1);
+  return pop(size-1);
 }
 
 //Overload constructor
@@ -162,17 +171,22 @@ LinkedList(vector<int> initial) {
 };
 int main() {
   LinkedList l;
+  cout << ("Appends 1,2, 3 and 4, inserts 4 to index 1") << endl;
   l.append(1);
   l.append(2);
   l.append(3);
+  l.append(4);
   l.insert(4, 1);
   l.print();
+  cout << ("Removes at index 2, pops at index 1") << endl;
   l.remove(2);
   l.pop(1);
   l.print();
-  //Testing overload
+  cout << ("Testing pop()") << endl;
+  l.pop();
+  l.print();
+  cout << ("Testing overload") << endl;
   LinkedList L({1,2,3,4,5});
-  L.remove(2);
   L.print();
   return 0;
 }
