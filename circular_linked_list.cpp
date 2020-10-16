@@ -37,28 +37,8 @@ class CircLinkedList{
         int i = 1;
         while (i<=n){
             append(i);
-            //size ++; //          Jeg har size++ i både CirkLinkedList(n) og append. HVORFOR??
             i++;
-        }/*
-        head = nullptr;
-        tail = nullptr;
-        int i = 1;
-
-        if (head == nullptr) {
-            head = new Node(i);
-            size ++;
         }
-        else{
-            Node* current;
-            current = head;
-            while (i<=n){
-                append(i);
-                //current->next = new Node(i);
-                //current = current->next;
-                size ++;
-                i++;
-            }
-        }*/
     }
 
     void append(int val) {
@@ -69,30 +49,10 @@ class CircLinkedList{
             new_node->next = new_node;
             tail = new_node;
         }
-        //new_node->previous = tail;
         tail->next = new_node;
-        //tail=new_node;
         new_node->next = head;
         tail=new_node;
-    }/*
-        if (head == nullptr) {
-            head = new Node(val, head);
-            size ++;
-            return;
-        }        
-        // Iterate to end of list
-        Node* current;
-        current = head;
-        while (current->next != head) {
-            current = current->next;
-            std::cout << current->value << std::endl;
-        }
-    
-        // Link new node to end of list
-        current->next = new Node(val, head);
-        //current->next->next = head;
-        size ++;
-    }*/
+    }
     
     int& operator[](int index){
         if (index < 0 || head==nullptr) {
@@ -161,7 +121,6 @@ int main(){
     clist.append(4);
     clist.append(5);
     clist.print();
-    last_man_standing(6, 3);
     std::cout << last_man_standing(6, 3) << std::endl;
     return 0;
 }
