@@ -68,7 +68,7 @@ void print() {
 
 int& operator[] (int index) {
   if (index < 0 or index >= size) {
-        throw range_error("IndexError: Index out of range");
+        throw std::range_error("IndexError: Index out of range");
       }
 
   Node* current = head;
@@ -96,7 +96,7 @@ void append(int val){
 
 void insert(int val, int index){
   if (index < 0 or index >= size) {
-        throw range_error("IndexError: Index out of range");
+        throw std::range_error("IndexError: Index out of range");
       }
   Node* current = head;
   for(int i = 0; i<index; i++){
@@ -117,7 +117,7 @@ void insert(int val, int index){
 
 void remove(int index){
   if (index < 0 or index >= size) {
-        throw range_error("IndexError: Index out of range");
+        throw std::range_error("IndexError: Index out of range");
       }
   Node* current = head;
   if(index == size-1){
